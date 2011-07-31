@@ -87,7 +87,7 @@ void Pony::listen(Client client) {
 }
 
 void Pony::dispatch(Client client, route r, PonyRequest request) {
-  String response = r.func();
+  String response = r.func(request);
   Serial.println(response);
   client.println("HTTP/1.1 200 OK");
   client.println("Content-Type: text/html");
