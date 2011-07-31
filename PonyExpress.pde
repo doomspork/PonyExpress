@@ -7,7 +7,7 @@
 Pony pony = Pony();
 Server server = Server(80);
 
-String index(PonyRequest request) {
+String index() {
   Serial.println("Index reached");
   String response = "";
   response.concat("<html><body>");

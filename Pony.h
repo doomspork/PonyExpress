@@ -12,7 +12,7 @@
 #define PUT "PUT"
 #define DELETE "DELETE"
 
-typedef String(*callback)(PonyRequest);
+typedef String(*callback)();
 
 class route {
 public:

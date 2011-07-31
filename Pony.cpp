@@ -70,27 +70,24 @@ void Pony::listen(Client client) {
       }
     }
     PonyRequest * request = new PonyRequest(buffer);
-		
+		Serial.println(request->getHttpMethod());
 		//The registry should really enable us to only search applicable http method routes
-		route *r = NULL;
+		route * r = NULL;
 		for(int i =  0 ; i < sizeof(registry) ; i++) { 
-			if(request->getHttpMethod() == (*registry[i]).method && 
-				 request->getPath() == (*registry[i]).uri) {
+			if(request->getHttpMethod() == registry[i]->method && 
+				 request->getPath() == registry[i]->uri) {
 					r = registry[i];
 			}
 			
 		}
-    Serial.println("Dispatch");
     this->dispatch(client, *r, *request);
     delay(1);
     client.stop();
   }
-  Serial.println(buffer);
 }
 
 void Pony::dispatch(Client client, route r, PonyRequest request) {
-  Serial.println("Dispatch Executing");
-  String response = r.func(request);
+  String response = r.func();
   Serial.println(response);
   client.println("HTTP/1.1 200 OK");
   client.println("Content-Type: text/html");

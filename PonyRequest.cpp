@@ -4,18 +4,27 @@ PonyRequest::PonyRequest(String buffer) {
 	count = 0;
 	capacity = 0;
 	vars = NULL;
-this->parse(buffer);
+	this->parse(buffer);
+}
+
+PonyRequest::~PonyRequest() {
+	if(vars == NULL) {
+		return;
+	}
+
+	delete [] vars;
 }
 
 void PonyRequest::parse(String buffer) {
-	buffer = buffer.trim().substring(0, -1); 
- 	httpMethod = buffer.substring(0, buffer.indexOf(' '));
-	if(httpMethod.equals("POST")) {
+ httpMethod = buffer.substring(0, buffer.indexOf(' '));
+ Serial.println("Method: " + httpMethod);
+ if(httpMethod.equals("POST")) {
 		String vars = buffer.substring(buffer.lastIndexOf('\n\r'));
 		int lastIndex = 0;
 		while(lastIndex != -1) {
 			int index = vars.indexOf('&');
 			String group = vars.substring(lastIndex, index);
+			Serial.println(group);
 			int eqIndex = group.indexOf('=');
 			String key = group.substring(0, eqIndex - 1);
 			String value = group.substring(eqIndex + 1);

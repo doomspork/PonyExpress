@@ -18,6 +18,7 @@ private:
 	void addRequestParameter(String, String);
 public:
 	PonyRequest(String);
+	~PonyRequest();
 	String getHttpMethod();
 	String getPath();
 	String getUrl();
