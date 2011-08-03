@@ -4,18 +4,16 @@
 #include "cppfix.h"
 #include "Pony.h"
 
+
 Pony pony = Pony();
 Server server = Server(80);
 
-String index(PonyRequest request) {
-  String response = "";
-  response.concat("<html><body>");
-  response.concat("<form method='POST' action='/post'>");
-  response.concat("<input type='text' name='key' value='value'/>");
-  response.concat("<input type='submit' value='Submit'/>");
-  response.concat("</form>");
-  response.concat("</body></html>");
-  return response;
+char * index(PonyRequest request) {
+  return "<html><body><form method='POST' action='/post'><input type='text' name='key' value='value'/><input type='submit' value='Submit'/></form></body></html>";
+}
+
+char * post(PonyRequest request) {
+  return "<html><body>Successfully</body></html>";
 }
 
 byte mac[] = { 0x90, 0xA2, 0xDA, 0x00, 0x59, 0x50 };  
@@ -27,6 +25,7 @@ void setup() {
   Ethernet.begin(mac, ip);
   server.begin();
   pony.add(GET, "/", index);
+  pony.add(POST, "/post", post);
 }
 
 void loop() {

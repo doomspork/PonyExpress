@@ -2,26 +2,40 @@
 #define PONYREQUEST_H
 
 #include <WProgram.h>
+#include <SPI.h>
+#include <Ethernet.h>
+
+#define GET "GET"
+#define POST "POST"
+#define PUT "PUT"
+#define DELETE "DELETE"
+
+#define STRING_BUFFER_SIZE 128
 
 struct HTTP_VAR {
-	String key;
-	String value;
+	char * key;
+	char * value;
 };
 
 class PonyRequest {
 	HTTP_VAR *vars;
 	int count;
 	int capacity;
-	String httpMethod;
+	char * httpMethod;
+        char * path;
+        int contentLength;
 private:
-	void parse(String);
+	void parse(Client);
+  void parsePostParameters(char *);
+  void parseContentLength(char *);
+  void parseRequestInformation(char *);
 	void addRequestParameter(String, String);
 public:
-	PonyRequest(String);
+	PonyRequest(Client);
 	~PonyRequest();
-	String getHttpMethod();
-	String getPath();
-	String getUrl();
+	char * getHttpMethod();
+	char * getPath();
+	char * getUrl();
 	HTTP_VAR *getRequestParameters();
 };
 
