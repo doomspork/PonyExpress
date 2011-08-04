@@ -4,9 +4,9 @@ A small route dispatcher for Arduino's ethernet capabilities.
 ## Defining your destinations
 Setting a destination is as easy as defining a method in your Arduino Sketch
 that accepts a *PonyRequest* object and returns a character pointer.  
-```char * index(PonyRequest) {  
-    return "You've reached the index!";  
-}```
+```char * index(PonyRequest request) {```  
+```return "You've reached the index!";```
+```}```
 
 Now it's necessary to create an instance of the *Pony* object.  This allows us to tell Pony how we want it to use our methods.  
 ```Pony pony = Pony();```
