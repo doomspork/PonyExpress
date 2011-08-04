@@ -22,21 +22,21 @@ class PonyRequest {
 	int count;
 	int capacity;
 	char * httpMethod;
-        char * path;
-        int contentLength;
+	char * path;
+	int contentLength;
 private:
 	void parse(Client);
-  void parsePostParameters(char *);
-  void parseContentLength(char *);
   void parseRequestInformation(char *);
-	void addRequestParameter(String, String);
+  void parseContentLength(char *);
+  void parsePostParameters(char *);
+  void parseGetParameters(char *);
+	void addRequestParameter(char *);
 public:
 	PonyRequest(Client);
 	~PonyRequest();
 	char * getHttpMethod();
 	char * getPath();
-	char * getUrl();
-	HTTP_VAR *getRequestParameters();
+	HTTP_VAR * getRequestParameters();
 };
 
 #endif

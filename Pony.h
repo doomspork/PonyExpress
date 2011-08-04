@@ -6,19 +6,9 @@
 #include <Ethernet.h>
 #include "PonyRequest.h"
 
-
 #define STRING_BUFFER_SIZE 128
 
 typedef char * (*callback)(PonyRequest);
-
-/*
-class route {
-public:
-	char *uri;
-	String method;
-	callback func;
-};
-*/
 
 struct ROUTE {
 	char * uri;
@@ -30,13 +20,16 @@ class Pony {
 	int count;
 	int capacity;
 	ROUTE * registry;
+	callback error;
 private:
 	void dispatch(Client, ROUTE, PonyRequest);
+	void notFound(Client, PonyRequest);
 public:
 	Pony();
 	~Pony();
-	void listen(Client);
 	void add(char*, char*, callback);
+	void notFound(callback);
+	void listen(Client);
 };
 
 #endif
